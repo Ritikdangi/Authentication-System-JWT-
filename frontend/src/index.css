@@ -4,3 +4,38 @@
 
 /* App-specific tweaks (optional) */
 html, body, #root { height: 100%; }
+
+/* Base font + colors */
+:root{
+	--bg: #f8fafc;
+	--card: #ffffff;
+	--text: #0f172a;
+}
+
+body{
+	@apply bg-soft-50 text-slate-900 font-sans;
+}
+
+.dark body{
+	@apply bg-slate-900 text-slate-100;
+}
+
+/* Form and button helpers */
+.form-input{
+	@apply w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light transition-shadow;
+}
+
+.card{
+	@apply bg-white dark:bg-slate-800 rounded-xl shadow-soft p-6;
+}
+
+.btn-primary{
+	@apply bg-primary text-white px-5 py-2 rounded-lg shadow hover:shadow-lg transform hover:-translate-y-0.5 transition ease-in-out;
+}
+
+.btn-secondary{
+	@apply bg-accent text-white px-5 py-2 rounded-lg shadow hover:bg-accent-dark transform hover:scale-105 transition;
+}
+
+.link-muted{ @apply text-slate-500 hover:text-slate-700 }
+

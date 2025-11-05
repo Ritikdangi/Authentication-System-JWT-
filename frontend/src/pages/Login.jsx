@@ -6,11 +6,13 @@ export default function Login({ onAuth }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
   async function handleSubmit(e) {
     e.preventDefault()
     setError('')
+    setLoading(true)
     try {
       const data = await login({ email, password })
       if (data.token) {
@@ -26,16 +28,18 @@ export default function Login({ onAuth }) {
       }
     } catch (err) {
       setError('Network error')
+    } finally {
+      setLoading(false)
     }
   }
 
   return (
-    <div className="max-w-md mx-auto bg-white p-6 rounded shadow">
-      <h2 className="text-2xl mb-4">Login</h2>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-        <input required value={email} onChange={e=>setEmail(e.target.value)} placeholder="Email" type="email" className="p-2 border rounded" />
-        <input required value={password} onChange={e=>setPassword(e.target.value)} placeholder="Password" type="password" className="p-2 border rounded" />
-        <button className="bg-green-600 text-white px-4 py-2 rounded">Sign in</button>
+    <div className="max-w-md mx-auto mt-12 card">
+      <h2 className="text-2xl mb-4 font-semibold">Sign in to your account</h2>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <input required value={email} onChange={e=>setEmail(e.target.value)} placeholder="Email" type="email" className="form-input" />
+        <input required value={password} onChange={e=>setPassword(e.target.value)} placeholder="Password" type="password" className="form-input" />
+        <button disabled={loading} className="btn-secondary">{loading ? 'Signing...' : 'Sign in'}</button>
         {error && <div className="text-red-600">{error}</div>}
       </form>
     </div>
